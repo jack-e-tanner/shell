@@ -53,7 +53,7 @@ ParseResult tokenize(const std::string& input) {
       in_single_quote = true;
     } else if (c == '"') {
       in_double_quote = true;
-    } else if (c == '>' || c == '<') {
+    } else if (c == '>') {
       // operator terminates current token
       if (!current_token.empty()) {
         result.tokens.push_back(current_token);
@@ -64,8 +64,11 @@ ParseResult tokenize(const std::string& input) {
       // TODO
 
       // add operator as its own token
-      result.tokens.push_back(std::string(1, c));
-
+      if (result.tokens.back() == "1" || result.tokens.back() == "2") {
+        result.tokens.back() += c;  // combine with previous token
+      } else {
+        result.tokens.push_back(std::string(1, c));
+      }
     } else if (std::isspace(static_cast<unsigned char>(c))) {
       if (!current_token.empty()) {
         result.tokens.push_back(current_token);

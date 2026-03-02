@@ -8,7 +8,7 @@
 
 #include "builtins.h"
 #include "executor.h"
-
+ 
 int SimpleCommandNode::execute() {
   if (args.empty()) return 0;
 
